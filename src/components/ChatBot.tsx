@@ -14,7 +14,7 @@ const ChatBot = () => {
           It's all gonna be alright
         </h2>
         <p className="text-center text-gray-600">
-          Hi, I'm Honesty-Vine. I'm here to listen and support you through whatever you're going through.
+          Hi, I'm Honesty-Irine. I'm here to listen and support you through whatever you're going through.
         </p>
         <div className="grid gap-4 w-full">
           <Button className="w-full bg-wellness-purple hover:bg-wellness-purple/90">
@@ -23,7 +23,7 @@ const ChatBot = () => {
           </Button>
           <Button variant="outline" className="w-full">
             <Brain className="mr-2 h-4 w-4" />
-            How Well Vine Knows You?
+            How Well Irine Knows You?
           </Button>
           <Button variant="outline" className="w-full">
             <LineChart className="mr-2 h-4 w-4" />

@@ -18,7 +18,7 @@ const Navigation = () => {
     <div className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-2xl font-semibold text-wellness-purple">
-          Honesty-Vine
+          Honesty-Irine
         </Link>
         <Sheet>
           <SheetTrigger asChild>
