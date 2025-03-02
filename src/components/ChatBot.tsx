@@ -72,7 +72,7 @@ const ChatBot: React.FC = () => {
               <Button
                 className="w-full bg-wellness-purple hover:bg-wellness-purple/90 text-white"
                 onClick={() => {
-                  fetch('https://langgaph-mental-therapy-bot.onrender.com/new-chat ', {
+                  fetch('https://langgaph-mental-therapy-bot.onrender.com/new-chat', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
