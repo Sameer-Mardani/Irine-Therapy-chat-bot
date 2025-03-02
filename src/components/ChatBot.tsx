@@ -13,6 +13,8 @@ const ChatBot: React.FC = () => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isGenZMode, setIsGenZMode] = useState(false);
+  const [threadId, setThreadId] = useState<string | null>(null); // New state for thread_id
+
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -21,14 +23,31 @@ const ChatBot: React.FC = () => {
     setMessage('');
 
     try {
-      const res = await fetch('https://ai-mental-health-bot.onrender.com/api/chat', {
+      const res = await fetch('https://langgaph-mental-therapy-bot.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, mode: isGenZMode ? 'genz' : 'default' }),
+        body: JSON.stringify({ "message": message, "thread_id": threadId }),
       });
-      const data = await res.json();
-      const botMessage = { text: data.response || data.message || 'No reply, fam!', isUser: false };
-      setChatHistory((prev) => [...prev, botMessage]);
+
+      if (!res.body) {
+        throw new Error('ReadableStream not supported in this environment.');
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let botMessage = { text: '', isUser: false };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        botMessage.text += decoder.decode(value, { stream: true });
+        setChatHistory((prev) => [...prev.slice(0, -1), botMessage]);
+      }
+
+      // Finalize the message
+      botMessage.text += decoder.decode();
+      setChatHistory((prev) => [...prev.slice(0, -1), botMessage]);
+
     } catch (error) {
       const errorMessage = { text: 'Error: ' + (error as Error).message, isUser: false };
       setChatHistory((prev) => [...prev, errorMessage]);
@@ -52,7 +71,24 @@ const ChatBot: React.FC = () => {
             <div className="grid gap-4 w-full">
               <Button
                 className="w-full bg-wellness-purple hover:bg-wellness-purple/90 text-white"
-                onClick={() => setIsChatting(true)}
+                onClick={() => {
+                  fetch('https://langgaph-mental-therapy-bot.onrender.com/new-chat ', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log('Success:', data);
+                      setThreadId(data.thread_id);
+                      setIsChatting(true)
+                    })
+                    .catch((error) => {
+                      console.error('Error:', error);
+                    });
+                }
+                }
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Start AI Therapy Chat
@@ -85,11 +121,10 @@ const ChatBot: React.FC = () => {
               {chatHistory.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`mb-2 p-2 rounded-lg ${
-                    msg.isUser
-                      ? "bg-blue-200 ml-auto text-right max-w-[80%]"
-                      : "bg-gray-200 mr-auto text-left max-w-[80%]"
-                  }`}
+                  className={`mb-2 p-2 rounded-lg ${msg.isUser
+                    ? "bg-blue-200 ml-auto text-right max-w-[80%]"
+                    : "bg-gray-200 mr-auto text-left max-w-[80%]"
+                    }`}
                 >
                   {msg.text}
                 </div>
