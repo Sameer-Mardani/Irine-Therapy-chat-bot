@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "@/components/ui/Logo"; // Adjust the import path to match your Logo.tsx location
 
@@ -23,8 +23,12 @@ const Navigation = () => {
         </Link>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="group border border-[#76C7C0] rounded-md hover:border-[#76C7C0]/70 transition-colors"
+            >
+              <Menu className="h-6 w-6 text-[#76C7C0] group-hover:text-[#A0AEC0] transition-colors" />
             </Button>
           </SheetTrigger>
           <SheetContent>
