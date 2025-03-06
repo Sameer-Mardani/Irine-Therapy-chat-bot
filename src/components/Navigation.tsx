@@ -3,6 +3,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "@/components/ui/Logo"; // Adjust the import path to match your Logo.tsx location
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const Navigation = () => {
   return (
     <div className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-semibold text-wellness-purple">
-          Honesty-Irine
+        <Link to="/" className="text-wellness-purple">
+          <Logo />
         </Link>
         <Sheet>
           <SheetTrigger asChild>
