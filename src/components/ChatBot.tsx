@@ -66,8 +66,8 @@ const ChatBot: React.FC = () => {
 
   return (
     <div
-      className={`relative w-full max-w-md transition-all duration-500 ease-in-out ${
-        isChatting ? "h-[600px]" : "h-[500px]"
+      className={`relative w-full transition-all duration-500 ease-in-out ${
+        isChatting ? "max-w-3xl h-[600px]" : "max-w-md h-[500px]"
       } overflow-hidden`}
     >
       {/* Sliding Container for Menu */}
