@@ -26,9 +26,12 @@ export default {
         foreground: "hsl(var(--foreground))",
         wellness: {
           blue: "#D3E4FD",
-          purple: "#E5DEFF",
-          peach: "#FDE1D3",
-          gray: "#F1F0FB",
+          // purple: "#E5DEFF",
+          purple: "#A8D8D5",
+          // peach: "#FDE1D3",
+          peach: "#D9D8F0",
+          // gray: "#F1F0FB",
+          gray: "#F5E8D3",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",

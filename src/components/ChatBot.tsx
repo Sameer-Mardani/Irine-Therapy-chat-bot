@@ -13,8 +13,7 @@ const ChatBot: React.FC = () => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isGenZMode, setIsGenZMode] = useState(false);
-  const [threadId, setThreadId] = useState<string | null>(null); // New state for thread_id
-
+  const [threadId, setThreadId] = useState<string | null>(null);
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -44,10 +43,8 @@ const ChatBot: React.FC = () => {
         setChatHistory((prev) => [...prev.slice(0, -1), botMessage]);
       }
 
-      // Finalize the message
       botMessage.text += decoder.decode();
       setChatHistory((prev) => [...prev.slice(0, -1), botMessage]);
-
     } catch (error) {
       const errorMessage = { text: 'Error: ' + (error as Error).message, isUser: false };
       setChatHistory((prev) => [...prev, errorMessage]);
@@ -70,7 +67,7 @@ const ChatBot: React.FC = () => {
             </p>
             <div className="grid gap-4 w-full">
               <Button
-                className="w-full bg-wellness-purple hover:bg-wellness-purple/90 text-white"
+                className="w-full bg-wellness-purple hover:bg-wellness-purple/90 text-black"
                 onClick={() => {
                   fetch('https://langgaph-mental-therapy-bot.onrender.com/new-chat', {
                     method: 'POST',
@@ -82,25 +79,42 @@ const ChatBot: React.FC = () => {
                     .then(data => {
                       console.log('Success:', data);
                       setThreadId(data.thread_id);
-                      setIsChatting(true)
+                      setIsChatting(true);
                     })
                     .catch((error) => {
                       console.error('Error:', error);
                     });
-                }
-                }
+                }}
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Start AI Therapy Chat
               </Button>
-              <Button variant="outline" className="w-full text-gray-700 border-gray-300">
-                <Brain className="mr-2 h-4 w-4" />
-                How Well Irine Knows You?
-              </Button>
-              <Button variant="outline" className="w-full text-gray-700 border-gray-300">
-                <LineChart className="mr-2 h-4 w-4" />
-                Track Your Mood
-              </Button>
+              <div className="relative w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full text-gray-500 border-gray-300"
+                  disabled
+                >
+                  <Brain className="mr-2 h-4 w-4" />
+                  How Well Irine Knows You?
+                </Button>
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded-full">
+                  Coming Soon
+                </span>
+              </div>
+              <div className="relative w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full text-gray-500 border-gray-300"
+                  disabled
+                >
+                  <LineChart className="mr-2 h-4 w-4" />
+                  Track Your Mood
+                </Button>
+                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded-full">
+                  Coming Soon
+                </span>
+              </div>
             </div>
           </>
         ) : (
@@ -124,7 +138,7 @@ const ChatBot: React.FC = () => {
                   className={`mb-2 p-2 rounded-lg ${msg.isUser
                     ? "bg-blue-200 ml-auto text-right max-w-[80%]"
                     : "bg-gray-200 mr-auto text-left max-w-[80%]"
-                    }`}
+                  }`}
                 >
                   {msg.text}
                 </div>

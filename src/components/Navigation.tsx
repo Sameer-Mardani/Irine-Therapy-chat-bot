@@ -16,7 +16,7 @@ const Navigation = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-sm">
+    <div className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-wellness-purple">
           <Logo />
