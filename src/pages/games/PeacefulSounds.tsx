@@ -5,7 +5,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
-// Map your audio files to the tracks
 const peacefulTracks = [
   {
     id: 1,
@@ -13,7 +12,7 @@ const peacefulTracks = [
     duration: "3:45",
     category: "Nature Sounds",
     imageUrl: "https://images.unsplash.com/photo-1518877593221-1f28583780b4",
-    audioSrc: "/light_rain.mp3", // From your public folder
+    audioSrc: "/light_rain.mp3",
   },
   {
     id: 2,
@@ -21,7 +20,7 @@ const peacefulTracks = [
     duration: "5:20",
     category: "Nature Sounds",
     imageUrl: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
-    audioSrc: "/water_oceanwaves.mp3", // From your public folder
+    audioSrc: "/water_oceanwaves.mp3",
   },
   {
     id: 3,
@@ -29,7 +28,7 @@ const peacefulTracks = [
     duration: "4:15",
     category: "Meditation",
     imageUrl: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
-    audioSrc: "/forest_ambience.mp3", // From your public folder
+    audioSrc: "/forest_ambience.mp3",
   },
 ];
 
@@ -68,9 +67,12 @@ const PeacefulSounds = () => {
       <CloudBackground />
       <Navigation />
       <main className="container mx-auto px-4 pt-24 pb-12 relative">
-        <h1 className="text-3xl font-semibold text-center mb-8 text-wellness-blue">Peaceful Sounds</h1>
+        <h1 className="text-3xl font-semibold text-center mb-8 text-wellness-blue">
+          Peaceful Sounds
+        </h1>
         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          Immerse yourself in a collection of calming sounds and melodies designed to help you relax and find peace.
+          Immerse yourself in a collection of calming sounds and melodies
+          designed to help you relax and find peace.
         </p>
 
         {/* Single audio element for all tracks */}
