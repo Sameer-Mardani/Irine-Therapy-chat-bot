@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { MessageCircle, Brain, LineChart } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button"; // Verify this path exists
+import { Card } from "@/components/ui/card";   // Verify this path exists
+import { MessageCircle, Brain, LineChart } from "lucide-react"; // Ensure lucide-react is installed
 
 interface ChatMessage {
   text: string;
@@ -10,31 +10,34 @@ interface ChatMessage {
 
 const ChatBot: React.FC = () => {
   const [isChatting, setIsChatting] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isGenZMode, setIsGenZMode] = useState(false);
   const [threadId, setThreadId] = useState<string | null>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = async () => {
     if (!message.trim()) return;
-    const userMessage = { text: message, isUser: true };
+
+    const userMessage: ChatMessage = { text: message, isUser: true };
     setChatHistory((prev) => [...prev, userMessage]);
-    setMessage('');
 
     try {
-      const res = await fetch('https://langgaph-mental-therapy-bot.onrender.com/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "message": message, "thread_id": threadId }),
+      const res = await fetch("https://langgaph-mental-therapy-bot.onrender.com/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message, thread_id: threadId }),
       });
 
       if (!res.body) {
-        throw new Error('ReadableStream not supported in this environment.');
+        throw new Error("ReadableStream not supported in this environment.");
       }
 
       const reader = res.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let botMessage = { text: '', isUser: false };
+      const decoder = new TextDecoder("utf-8");
+      let botMessage: ChatMessage = { text: "", isUser: false };
+
+      setChatHistory((prev) => [...prev, botMessage]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -46,10 +49,21 @@ const ChatBot: React.FC = () => {
       botMessage.text += decoder.decode();
       setChatHistory((prev) => [...prev.slice(0, -1), botMessage]);
     } catch (error) {
-      const errorMessage = { text: 'Error: ' + (error as Error).message, isUser: false };
+      const errorMessage: ChatMessage = {
+        text: "Error: " + (error as Error).message,
+        isUser: false,
+      };
       setChatHistory((prev) => [...prev, errorMessage]);
     }
+
+    setMessage("");
   };
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   return (
     <Card className="w-full max-w-md p-6 bg-gradient-to-br from-blue-50 to-purple-50 shadow-lg rounded-2xl">
@@ -68,30 +82,26 @@ const ChatBot: React.FC = () => {
             <div className="grid gap-4 w-full">
               <Button
                 className="w-full bg-wellness-purple hover:bg-wellness-purple/90 text-black"
-                onClick={() => {
-                  fetch('https://langgaph-mental-therapy-bot.onrender.com/new-chat', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  })
-                    .then(response => response.json())
-                    .then(data => {
-                      console.log('Success:', data);
-                      setThreadId(data.thread_id);
-                      setIsChatting(true);
-                    })
-                    .catch((error) => {
-                      console.error('Error:', error);
-                    });
+                onClick={async () => {
+                  try {
+                    const res = await fetch(
+                      "https://langgaph-mental-therapy-bot.onrender.com/new-chat",
+                      { method: "POST", headers: { "Content-Type": "application/json" } }
+                    );
+                    const data = await res.json();
+                    setThreadId(data.thread_id);
+                    setIsChatting(true);
+                  } catch (error) {
+                    console.error("Error starting chat:", error);
+                  }
                 }}
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Start AI Therapy Chat
               </Button>
               <div className="relative w-full">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full text-gray-500 border-gray-300"
                   disabled
                 >
@@ -103,8 +113,8 @@ const ChatBot: React.FC = () => {
                 </span>
               </div>
               <div className="relative w-full">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full text-gray-500 border-gray-300"
                   disabled
                 >
@@ -125,19 +135,23 @@ const ChatBot: React.FC = () => {
               </p>
               <Button
                 variant="outline"
-                className="text-sm"
+                className="text-sm border-gray-300"
                 onClick={() => setIsGenZMode(!isGenZMode)}
               >
                 {isGenZMode ? "Switch to Normal" : "Go Gen-Z"}
               </Button>
             </div>
-            <div className="flex-1 max-h-64 overflow-y-auto p-2 bg-white rounded-lg shadow-inner">
+            <div
+              ref={chatContainerRef}
+              className="flex-1 max-h-64 overflow-y-auto p-2 bg-white rounded-lg shadow-inner"
+            >
               {chatHistory.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`mb-2 p-2 rounded-lg ${msg.isUser
-                    ? "bg-blue-200 ml-auto text-right max-w-[80%]"
-                    : "bg-gray-200 mr-auto text-left max-w-[80%]"
+                  className={`mb-2 p-2 rounded-lg transition-all duration-300 ease-in-out ${
+                    msg.isUser
+                      ? "bg-blue-200 ml-auto text-right max-w-[80%] animate-slide-from-left"
+                      : "bg-gray-200 mr-auto text-left max-w-[80%] animate-slide-from-right"
                   }`}
                 >
                   {msg.text}
@@ -148,9 +162,9 @@ const ChatBot: React.FC = () => {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="border p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-wellness-purple"
+              className="border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-wellness-purple"
               placeholder="Type your message..."
-              onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+              onKeyPress={(e) => e.key === "Enter" && sendMessage()}
             />
             <Button
               onClick={sendMessage}
@@ -164,7 +178,7 @@ const ChatBot: React.FC = () => {
               onClick={() => {
                 setIsChatting(false);
                 setChatHistory([]);
-                setMessage('');
+                setMessage("");
               }}
             >
               Back to Menu
