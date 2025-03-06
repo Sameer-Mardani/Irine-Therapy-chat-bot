@@ -52,7 +52,7 @@ import React from "react";
 
 const CloudBackground = () => {
   return (
-    <div className=" inset-0 pointer-events-none overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
       <div className="absolute inset-0 bg-wellness-blue/30">
         <div className="cloud cloud-1 absolute top-[10%]">
           ☁️
