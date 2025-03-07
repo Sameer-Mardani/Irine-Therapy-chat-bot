@@ -1,7 +1,7 @@
 # Honestly-Irine
 
 ## About the Project
-![Banner](irine-banner2.png)  
+![Banner](irine-banner3.png)  
 Welcome to **Honestly-Irine**, a therapeutic web application designed to provide emotional support, relaxation, and mental well-being. Our mission is to create a safe, supportive space where users can connect with an AI therapist, engage in calming activities, and track their mood. Join us on this journey towards better mental health and a more peaceful life with Honestly-Irine!
 
 ### Overview
