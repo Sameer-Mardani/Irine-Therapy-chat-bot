@@ -12,7 +12,7 @@ const peacefulTracks = [
     duration: "3:45",
     category: "Nature Sounds",
     imageUrl: "https://images.unsplash.com/photo-1518877593221-1f28583780b4",
-    audioSrc: "/light_rain.mp3",
+    audioSrc: "/light_rainn.mp3",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const peacefulTracks = [
     duration: "5:20",
     category: "Nature Sounds",
     imageUrl: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
-    audioSrc: "/water_oceanwaves.mp3",
+    audioSrc: "/water_oceanwave.mp3",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const peacefulTracks = [
     duration: "4:15",
     category: "Meditation",
     imageUrl: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
-    audioSrc: "/forest_ambience.mp3",
+    audioSrc: "/forest_ambienc.mp3",
   },
 ];
 

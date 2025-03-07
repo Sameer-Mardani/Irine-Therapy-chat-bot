@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 
 // Assuming your sound files are in a "public/audio" folder or similar
 const soundFiles = [
-  "/light_rain.mp3",
-  "/forest_ambience.mp3",
-  "/water_oceanwaves.mp3",
+  "/light_rainn.mp3",
+  "/forest_ambienc.mp3",
+  "/water_oceanwave.mp3",
 ];
 
 const AudioPlayer = () => {
