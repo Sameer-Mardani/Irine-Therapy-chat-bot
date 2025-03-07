@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navigation from "@/components/Navigation";
 import CloudBackground from "@/components/CloudBackground";
@@ -51,7 +50,7 @@ const MindfulPuzzles = () => {
 
   if (selectedGame) {
     return (
-      <div className="min-h-screen bg-wellness-peach/20">
+      <div className="min-h-screen svg-inspired-gradient">
         <CloudBackground />
         <Navigation />
         <main className="container mx-auto px-4 pt-24 pb-12 relative">
@@ -62,7 +61,7 @@ const MindfulPuzzles = () => {
   }
 
   return (
-    <div className="min-h-screen bg-wellness-peach/20">
+    <div className="min-h-screen svg-inspired-gradient">
       <CloudBackground />
       <Navigation />
       <main className="container mx-auto px-4 pt-24 pb-12 relative">
@@ -83,7 +82,7 @@ const MindfulPuzzles = () => {
               </div>
               <Button
                 onClick={() => setSelectedGame(game.id)}
-                className="w-full bg-wellness-peach hover:bg-wellness-peach/90"
+                className="w-full text-[#76C7C0] hover:bg-black transition-colors"
               >
                 Play Game
               </Button>

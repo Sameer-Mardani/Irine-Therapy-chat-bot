@@ -33,7 +33,7 @@ const MemoryGames = () => {
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-wellness-blue/20">
+    <div className="min-h-screen svg-inspired-gradient">
       <CloudBackground />
       <Navigation />
       <main className="container mx-auto px-4 pt-24 pb-12 relative">
@@ -58,7 +58,7 @@ const MemoryGames = () => {
               </div>
               <Button
                 onClick={() => setSelectedGame(game.id)}
-                className="w-full bg-wellness-blue hover:bg-wellness-blue/90"
+                className="w-full text-[#76C7C0] hover:bg-black transition-colors"
               >
                 Start Training
               </Button>
