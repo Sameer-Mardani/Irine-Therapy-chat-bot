@@ -175,3 +175,45 @@
     opacity: 0; /* Invisible */
   }
 }
+.animated-gradient {
+  background: linear-gradient(
+    45deg,
+    #D9D8F0,
+    #7D7C8A,
+    rgba(118, 199, 192, 0.96),
+    rgba(245, 232, 211, 0.2)
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+.svg-inspired-gradient {
+  background: linear-gradient(
+    45deg,
+    #D9D8F0,
+    #7D7C8A,
+    rgba(118, 199, 192, 0),
+    rgba(118, 199, 192, 0.96),
+    rgba(245, 232, 211, 0),
+    rgba(245, 232, 211, 0.2)
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
