@@ -71,6 +71,6 @@ Explore the key features and interface of Honestly-Irine through these screensho
   
 ## Developers
 - **Frontend**: Sameer Mardani, Afreen Hossain, Amina Yameen
-- **Backend-Database**: Aghar Raza
+- **Backend-Database**: Asghar Raza
 - **AL/ML**: Devesh
 - **Risk Analyst**: Aneesh Sai
